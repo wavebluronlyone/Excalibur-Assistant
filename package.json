@@ -1,0 +1,35 @@
+{
+  "name": "excalibur-assistant",
+  "version": "0.0.1",
+  "description": "a personal line chat bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wavebluronlyone/Excalibur-Assistant.git"
+  },
+  "keywords": [
+    "LineBot",
+    "Lineapi"
+  ],
+  "author": "WaveBlur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wavebluronlyone/Excalibur-Assistant/issues"
+  },
+  "homepage": "https://github.com/wavebluronlyone/Excalibur-Assistant#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "cors": "^2.8.4",
+    "fastify": "^1.9.0",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.1"
+  }
+}
