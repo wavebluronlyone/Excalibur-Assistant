@@ -14,47 +14,50 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var fastify = require('fastify')();
 
-var port = 3003;
+var port = 3003 || process.env.port;
 
-_mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true }).then(function (client) {
+// MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
+//   .then((client) => {
 
-  fastify.use((0, _cors2.default)());
 
-  fastify.register(require('fastify-mongodb'), { client: client }).register(require('./routes/BasicAsk'));
+fastify.use((0, _cors2.default)());
 
-  fastify.get('/api/healthcheck', function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, reply) {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              reply.send({ status: 'ok' });
+fastify.register(require('fastify-mongodb'), { client: client }).register(require('./routes/BasicAsk'));
 
-            case 1:
-            case 'end':
-              return _context.stop();
-          }
+fastify.get('/api/healthcheck', function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, reply) {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            reply.send({ status: 'ok' });
+
+          case 1:
+          case 'end':
+            return _context.stop();
         }
-      }, _callee, undefined);
-    }));
+      }
+    }, _callee, undefined);
+  }));
 
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  }());
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}());
 
-  fastify.post('/webhook', function (req, reply) {
-    reply.code(200);
-  });
-
-  fastify.get('/', function (req, reply) {
-    reply.send('Excalibur Bot');
-  });
-
-  fastify.listen(port, '0.0.0.0', function (err) {
-    if (err) throw err;
-    console.log('Server Running on ' + port);
-  });
-}).catch(function (err) {
-  throw err;
+fastify.post('/webhook', function (req, reply) {
+  reply.code(200);
 });
+
+fastify.get('/', function (req, reply) {
+  reply.send('Excalibur Bot');
+});
+
+fastify.listen(port, '0.0.0.0', function (err) {
+  if (err) throw err;
+  console.log('Server Running on ' + port);
+});
+// })
+// .catch((err) => {
+//   throw err
+// })
