@@ -4,11 +4,11 @@ import { MongoClient } from 'mongodb';
 
 const fastify = require('fastify')();
 
-const port = 3003;
+const port = 3003 || process.env.port;
 
 
-MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
-  .then((client) => {
+// MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
+//   .then((client) => {
     
 
     fastify.use(cors());
@@ -33,7 +33,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser:
       if (err) throw err;
       console.log(`Server Running on ${port}`);
     });
-  })
-  .catch((err) => {
-    throw err
-  })
+  // })
+  // .catch((err) => {
+  //   throw err
+  // })
