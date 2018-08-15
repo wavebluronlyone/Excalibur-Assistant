@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 
 const fastify = require('fastify')();
 
-const port = process.env.PORT;
+const port =   3003 || process.env.PORT;
 
 
 // MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
@@ -22,7 +22,7 @@ const port = process.env.PORT;
     });
 
     fastify.post('/webhook', (req, reply) => {
-      reply.code(200);
+      reply.code(200).send({status:'ok'});
     });
 
     fastify.get('/', (req, reply) => {
