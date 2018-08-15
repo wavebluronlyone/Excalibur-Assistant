@@ -22,7 +22,7 @@ const port =   3003 || process.env.PORT;
     });
 
     fastify.post('/webhook', (req, reply) => {
-      reply.code(200).send({status:'ok'});
+      reply.code(200).send({ status:'200'});
     });
 
     fastify.get('/', (req, reply) => {
