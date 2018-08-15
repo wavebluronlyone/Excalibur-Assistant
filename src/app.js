@@ -14,8 +14,8 @@ const port = 3003 || process.env.port;
     fastify.use(cors());
 
     fastify
-    .register(require('fastify-mongodb'), { client })
-    .register(require('./routes/BasicAsk'))
+    // .register(require('fastify-mongodb'), { client })
+    .register(require('./routes/BasicAsk'));
 
     fastify.get('/api/healthcheck', async (req, reply) => {
       reply.send({ status: 'ok' });

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "nodemon --watch src src/app.js --exec babel-node --presets babel-preset-latest babel-preset-env",
+    "start": "nodemon --watch src src/app.js --exec babel-node --presets babel-preset-latest babel-preset-env",
     "clean": "rm -rf /dist && mkdir /dist",
-    "start": "npm run clean && babel src -d dist && node dist/app.js"
+    "build": "babel src -d dist && node dist/app.js"
   },
   "repository": {
     "type": "git",
