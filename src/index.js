@@ -1,11 +1,12 @@
 import 'babel-polyfill';
 import cors from 'cors';
 import ReplyToken from './utils/ReplyToken';
+import config from './config';
 // import { MongoClient } from 'mongodb';
 
 const fastify = require('fastify')();
 
-const port = process.env.PORT || 3003 ;
+const port = config.port;
 
 
 // MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
@@ -23,7 +24,7 @@ const port = process.env.PORT || 3003 ;
     });
 
     fastify.post('/webhook', (req, reply) => {
-      const reply_token = req.body.events[0].replyToken
+      const reply_token = req.body.events[0].replyToken;
       ReplyToken(reply_token);
       reply.status(200).send({ status:'200'});
     });

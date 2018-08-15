@@ -1,4 +1,4 @@
-import config from '../../config';
+import config from '../config';
 
 const channelToken = config.channelToken;
 
@@ -26,6 +26,6 @@ function reply(reply_token) {
         console.log('status = ' + res.statusCode);
     });
 }
-export default {
+module.exports = {
     reply
 }
