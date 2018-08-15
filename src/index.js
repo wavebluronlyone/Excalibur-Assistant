@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 
 const fastify = require('fastify')();
 
-const port =   3003 || process.env.PORT;
+const port = process.env.PORT;
 
 
 // MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })

@@ -48,7 +48,7 @@ fastify.get('/api/healthcheck', function () {
 }());
 
 fastify.post('/webhook', function (req, reply) {
-  reply.code(200).send({ status: '200' });
+  reply.status(200).send({ status: '200' });
 });
 
 fastify.get('/', function (req, reply) {
