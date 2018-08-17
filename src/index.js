@@ -1,43 +1,34 @@
 import 'babel-polyfill';
 import cors from 'cors';
-import ReplyToken from './utils/ReplyToken';
 import config from './config';
-// import { MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
+import fastify from 'fastify';
 
-const fastify = require('fastify')();
 
 const port = config.port;
+const mongoUrl = config.mongoUrl;
 
 
-// MongoClient.connect('mongodb://127.0.0.1:27017/SimpleOrders', { useNewUrlParser: true })
-//   .then((client) => {
+MongoClient.connect(`${mongoUrl}`, { useNewUrlParser: true })
+  .then((client) => {
+    const app = new fastify();
+    app.use(cors());
+    app.register(require('./routes/Webhook'))
+       .register(require('fastify-mongodb'), { client });
     
-
-    fastify.use(cors());
-
-    fastify
-    // .register(require('fastify-mongodb'), { client })
-    .register(require('./routes/BasicAsk'));
-
-    fastify.get('/api/healthcheck', async (req, reply) => {
-      reply.send({ status: 'ok' });
+    app.get('/api/healthcheck', (req, reply) => {
+      reply.status(200).send({ status: 'ok'});
     });
 
-    fastify.post('/webhook', (req, reply) => {
-      const reply_token = req.body.events[0].replyToken;
-      ReplyToken(reply_token);
-      reply.status(200).send({ status:'200'});
-    });
-
-    fastify.get('/', (req, reply) => {
+    app.get('/', (req, reply) => {
       reply.send('Excalibur Bot');
     });
 
-    fastify.listen(port, '0.0.0.0', (err) => {
+    app.listen(port, '0.0.0.0', (err) => {
       if (err) throw err;
-      console.log(`Server Running on ${port}`);
+      console.log(`Excalibur Bot Running on ${port}`);
     });
-  // })
-  // .catch((err) => {
-  //   throw err
-  // })
+  })
+  .catch((err) => {
+    throw err
+  })
