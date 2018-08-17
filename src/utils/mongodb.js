@@ -14,7 +14,7 @@ export const create = async (app, dbname, collectionName, data) => {
       ...rawData,
       create_at: now,
     };
-    const result = await col.insert(insertData);
+    const result = await col.insertOne(insertData);
     return result;
 };
 

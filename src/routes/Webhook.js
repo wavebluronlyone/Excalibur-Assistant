@@ -15,8 +15,9 @@ module.exports = async (app, option, next) => {
         const replyToken = req.body.events[0].replyToken;
         const userId = req.body.events[0].source.userId;
         const incomingMessage = req.body.events[0].message;
-        // console.log(incomingMessage)
+        //  console.log(incomingMessage)
         let receiveMessage = {};
+        let replyMessage = {};
         // console.log('events[0]', JSON.stringify(req.body.events[0]));
 
         console.log(`Receive Message from UserID: ${userId}`);
@@ -25,13 +26,20 @@ module.exports = async (app, option, next) => {
             case 'text' : {
                 console.log('type : text');
                 console.log(`"${incomingMessage.text}"`);
-                receiveMessage = incomingMessage;
+                replyMessage = {
+                    type: 'text',
+                    text: `${incomingMessage.text}`,
+                }
                 break;
             }
             case 'sticker' : {
                 console.log('type : sticker');
                 console.log(`Stciker ID: ${incomingMessage.stickerId}`);
-                receiveMessage = incomingMessage;
+                replyMessage = {
+                    type: 'sticker',
+                    stickerId: `${incomingMessage.stickerId}`,
+                    packageId: '1',  
+                }
                 break;
                 
             }
@@ -42,10 +50,6 @@ module.exports = async (app, option, next) => {
             }
         };
         
-        const replyMessage = {
-        type: 'text',
-        text: `${incomingMessage.text}`
-        };
 
         const logData = {
             userId,
