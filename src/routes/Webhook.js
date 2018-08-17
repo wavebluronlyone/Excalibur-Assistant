@@ -26,6 +26,7 @@ module.exports = async (app, option, next) => {
                 console.log('type : text');
                 console.log(`"${incomingMessage.text}"`);
                 receiveMessage = incomingMessage;
+                break;
             }
             case 'sticker' : {
                 console.log('type : sticker');
