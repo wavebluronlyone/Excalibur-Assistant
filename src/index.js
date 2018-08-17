@@ -10,7 +10,7 @@ const mongoUrl = config.mongoUrl;
 
 
 MongoClient.connect(`${mongoUrl}`, { useNewUrlParser: true })
-  .then((client) => {
+  .then(client => {
     const app = new fastify();
     app.use(cors());
     app.register(require('./routes/Webhook'))
@@ -30,5 +30,5 @@ MongoClient.connect(`${mongoUrl}`, { useNewUrlParser: true })
     });
   })
   .catch((err) => {
-    throw err
-  })
+    console.log(err.stack);
+  });

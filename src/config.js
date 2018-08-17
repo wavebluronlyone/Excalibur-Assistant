@@ -18,6 +18,7 @@ const lineUrl =  'https://api.line.me/v2/bot/message/reply';
 const dbuser = 'waveblur';
 const dbpass = 'waveza555';
 const mongoUrl = `mongodb://${dbuser}:${dbpass}@ds123532.mlab.com:23532/heroku_c5rxsb5d`;
+const dbName = 'heroku_c5rxsb5d';
 
 export default {
     port,
@@ -25,4 +26,5 @@ export default {
     channelSecret,
     mongoUrl,
     lineUrl,
+    dbName,
 }
