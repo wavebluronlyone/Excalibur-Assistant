@@ -17,11 +17,9 @@ module.exports = async (app, option, next) => {
         const replyToken = req.body.events[0].replyToken;
         const userId = req.body.events[0].source.userId;
         const incomingMessage = req.body.events[0].message;
-        let receiveMessage = {};
+        let receiveMessage = incomingMessage;
         let replyMessage = {};
-
         console.log(`Receive Message from UserID: ${userId}`);
-
         switch (incomingMessage.type) {
             case 'text' : {
                 console.log('type : text');
@@ -54,7 +52,7 @@ module.exports = async (app, option, next) => {
 
         const logData = {
             userId,
-            receiveMessage: incomingMessage,
+            receiveMessage,
             replyMessage,
         };
 
@@ -66,6 +64,20 @@ module.exports = async (app, option, next) => {
         } catch (error) {
           console.log(error.stack);
         }
+        reply.status(200).send({ status: 'ok'});
+    });
+
+    app.post('/sendmsg/:userid',async (req,reply) => {
+        const replyText = req.body.data.text;
+        const userId = req.params.userid;
+        let replyMessage = {};
+        replyMessage = {
+          type: 'text',
+          text: `${replyText}`,
+        }
+        console.log(replyText);
+        console.log('to : ',userId);
+        await client.pushMessage(userId,replyMessage);
         reply.status(200).send({ status: 'ok'});
     });
 
