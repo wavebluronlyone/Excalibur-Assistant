@@ -1,6 +1,6 @@
-export const find = async (app, dbname, collectionName, filter = {}) => {
+export const find = async (app, dbname, collectionName, filter = {}, sort = {}) => {
     const col = app.mongo.client.db(dbname).collection(collectionName);
-    const data = await col.find(filter).toArray();
+    const data = await col.find(filter).sort(sort).toArray();
 
     
     return data;

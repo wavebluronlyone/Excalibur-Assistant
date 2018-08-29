@@ -1,6 +1,6 @@
 import config from '../config';
 import * as line from '@line/bot-sdk';
-import { create } from '../utils/mongodb';
+import { create, find } from '../utils/mongodb';
 import { getProfile } from '../modules/Profile';
 
 module.exports = async (app, option, next) => {
@@ -84,6 +84,11 @@ module.exports = async (app, option, next) => {
         throw error.stack;
       }
     });
+
+    app.get('/logs',async (req,reply) => {
+      const logs = await find(app, dbName, 'Logs',{},{ _id : -1});
+      reply.send(logs);
+    })
 
     next();
 }
