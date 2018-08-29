@@ -86,7 +86,11 @@ module.exports = async (app, option, next) => {
     });
 
     app.get('/logs/',async (req,reply) => {
-      const logs = await find(app, dbName, 'Logs',{},{ _id : -1});
+      const lineid = req.query.lineid;
+      const filter = {
+        userId : lineid,
+      }
+      const logs = await find(app, dbName, 'Logs',filter,{ _id : -1 });
       reply.send(logs);
     })
 
