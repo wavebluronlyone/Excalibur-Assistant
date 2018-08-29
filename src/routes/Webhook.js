@@ -85,7 +85,7 @@ module.exports = async (app, option, next) => {
       }
     });
 
-    app.get('/logs',async (req,reply) => {
+    app.get('/logs/',async (req,reply) => {
       const logs = await find(app, dbName, 'Logs',{},{ _id : -1});
       reply.send(logs);
     })
