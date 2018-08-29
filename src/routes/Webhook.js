@@ -48,8 +48,6 @@ module.exports = async (app, option, next) => {
                 break;
             }
         };
-        
-
         const logData = {
             userId,
             receiveMessage,
@@ -57,8 +55,6 @@ module.exports = async (app, option, next) => {
         };
 
         try {
-          await client.replyMessage(`${replyToken}`, replyMessage);
-          console.log(`Excalibur Reply to ${userId} with ${JSON.stringify(replyMessage)}`);
           await create(app, dbName, 'Logs', logData);
           await getProfile(client, userId, app);
         } catch (error) {
@@ -67,18 +63,26 @@ module.exports = async (app, option, next) => {
         reply.status(200).send({ status: 'ok'});
     });
 
-    app.post('/sendmsg/:userid',async (req,reply) => {
-        const replyText = req.body.data.text;
-        const userId = req.params.userid;
-        let replyMessage = {};
-        replyMessage = {
-          type: 'text',
-          text: `${replyText}`,
-        }
-        console.log(replyText);
-        console.log('to : ',userId);
-        await client.pushMessage(userId,replyMessage);
-        reply.status(200).send({ status: 'ok'});
+    app.post('/sendmsg/',async (req,reply) => {
+      const replyContent = req.body.replycontent;
+      const userId = req.query.lineid;
+      console.log('to : ',userId);
+      console.log(replyContent);
+
+      const logData = {
+        userId,
+        replyMessage: replyContent,
+      };
+
+      try {
+        await create(app, dbName, 'Logs', logData);
+        await getProfile(client, userId, app);
+        await client.pushMessage(userId,replyContent);
+        reply.status(200).send({ repsoneMessage : 'sended message' });
+      } catch(error) {
+        reply.status(500).send({ error : error.stack });
+        throw error.stack;
+      }
     });
 
     next();
