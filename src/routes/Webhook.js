@@ -1,5 +1,4 @@
 import config from '../config';
-import * as line from '@line/bot-sdk';
 import axios from 'axios';
 
 module.exports = async (app, option, next) => {
