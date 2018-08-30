@@ -6,8 +6,8 @@ import { getProfile } from '../modules/Profile';
 module.exports = async (app, option, next) => {
 
     const configLine = {
-    channelAccessToken: config.channelAccessToken,
-    channelSecret: config.channelSecret,
+      channelAccessToken: config.channelAccessToken,
+      channelSecret: config.channelSecret,
     };
 
     const dbName = config.dbName;
@@ -86,10 +86,18 @@ module.exports = async (app, option, next) => {
     });
 
     app.get('/logs/',async (req,reply) => {
-      const lineid = req.query.lineid;
-      const filter = {
-        userId : lineid,
+      const lineid = req.query.userid;
+      let filter = {};
+
+      if(lineid !== undefined) {
+        filter = {
+          userId : lineid,
+        }
+        console.log('find logs by lineid', lineid);
+      } else {
+        console.log('find all logs');
       }
+      
       const logs = await find(app, dbName, 'Logs',filter,{ _id : -1 });
       reply.send(logs);
     })
