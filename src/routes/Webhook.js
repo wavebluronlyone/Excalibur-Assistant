@@ -8,7 +8,7 @@ module.exports = async (app, option, next) => {
         const url = config.apiUrl;
         try {
           
-          await axios.post('https://excalibur-rabitqueue.herokuapp.com/',{ data });
+          await axios.post('https://excalibur-rabitqueue.herokuapp.com/queue',{ data });
 
         } catch(err) {
           console.log(`Error webhook : ${err.stack}`);
