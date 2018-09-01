@@ -5,8 +5,8 @@ module.exports = async (app, option, next) => {
         const event =  req.body;
         const data = event.events[0]
         try {
-          console.log(data);
-          await axios.post('https://excalibur-rabitqueue.herokuapp.com/queue/',{ data });
+          const result = await axios.post('https://excalibur-rabitqueue.herokuapp.com/queue/',{ data });
+          console.log(result);
         } catch(err) {
           console.log(`Error webhook : ${err.stack}`);
         }
