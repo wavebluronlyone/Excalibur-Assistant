@@ -1,11 +1,12 @@
 const fastify = require('fastify')();
 const cors = require('cors');
 const facebook = require('./routes/facebook');
+const line = require('./routes/facebook');
 const port = process.env.PORT || 3002;
 
 fastify.use(cors());
-
-fastify.register(facebook, { prefix: '/webhooks/facebook' });
+fastify.register(line, { prefix: '/webhooks/line' })
+  .register(facebook, { prefix: '/webhooks/facebook' });
 
 fastify.get('/healthcheck', (req, reply) => {
   reply.status(200).send({ status: 'ok'});

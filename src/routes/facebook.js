@@ -11,12 +11,13 @@ module.exports = (fastify, Option, next) => {
   });
 
   fastify.post('/', async (req, reply) => {
-    console.log('message incomming ');
+    console.log('[FACEBOOK] Event Incomming');
     try {
-      await rabitmq.publisher(req.body, 'ch1');
+      await rabitmq.publisher(req.body, 'facebook');
+      console.log('[FACEBOOK] Send Event to queue Success');
       reply.status(200).send('receive message ok!!');
     } catch( error ) {
-      console.error(error.stack);
+      console.log(`[FACEBOOK] Error webhook : ${err.stack}`);
       reply.status(500).send({error: error.message});
     }
   });
