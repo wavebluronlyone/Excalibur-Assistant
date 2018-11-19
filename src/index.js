@@ -1,21 +1,23 @@
-import 'babel-polyfill';
-import cors from 'cors';
-import config from './config';
-import fastify from 'fastify';
-const port = config.port;
-const app = new fastify();
-app.use(cors());
-app.register(require('./routes/Webhook'));
+const fastify = require('fastify')();
+const cors = require('cors');
+const facebook = require('./routes/facebook');
+const line = require('./routes/line');
+const port = process.env.PORT || 3002;
 
-app.get('/api/healthcheck', (req, reply) => {
+fastify.use(cors());
+fastify
+  .register(line, { prefix: '/webhooks/line' })
+  .register(facebook, { prefix: '/webhooks/facebook' });
+
+fastify.get('/healthcheck', (req, reply) => {
   reply.status(200).send({ status: 'ok'});
 });
 
-app.get('/', (req, reply) => {
-  reply.send('Excalibur Bot');
-});
-
-app.listen(port, '0.0.0.0', (err) => {
+fastify.listen(port, '0.0.0.0', (err) => {
   if (err) throw err;
   console.log(`Excalibur Bot Webhook Running on ${port}`);
+});
+
+fastify.ready(() => {
+  console.log(fastify.printRoutes());
 });

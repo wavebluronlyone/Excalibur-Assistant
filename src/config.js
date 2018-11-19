@@ -1,13 +1,9 @@
-const port = process.env.PORT || 3004;
+const port = process.env.PORT || 3009;
+const queueUrl = 'amqp://yigshbya:gllLerGdvCYeCMga46ChHCzE_qdjAKaM@mosquito.rmq.cloudamqp.com/yigshbya';
+const apiUrl = process.env.NODE_ENV === 'production' ? '': 'http://localhost:3001/';
 
-// -- Api Dev -- //
-
-// const apiUrl = 'http://localhost:3003/api';
-
-// -- Api Production -- //
-const apiUrl = 'https://excaliburbot-api.herokuapp.com/api';
-
-export default {
+module.exports = {
     port,
     apiUrl,
+    queueUrl,
 }

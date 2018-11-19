@@ -1,22 +1,20 @@
 {
-  "name": "excalibur-assistant",
+  "name": "excalibur-assistant-webhooks",
   "version": "0.0.1",
-  "description": "a personal line chat bot",
+  "description": "a personal chat bot",
   "main": "index.js",
+  "engines": {
+    "node": "10.11.0",
+    "yarn": "1.12.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch src src/index.js --exec babel-node --presets babel-preset-latest babel-preset-env",
-    "clean": "rm -rf /dist && mkdir /dist",
-    "build": "babel src -d dist && node dist/index.js"
+    "start": "nodemon --watch src src/index.js",
+    "production": "node src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wavebluronlyone/Excalibur-Assistant-webhook.git"
   },
-  "keywords": [
-    "LineBot",
-    "Lineapi"
-  ],
   "author": "WaveBlur",
   "license": "ISC",
   "bugs": {
@@ -24,23 +22,10 @@
   },
   "homepage": "https://github.com/wavebluronlyone/Excalibur-Assistant#readme",
   "dependencies": {
+    "amqplib": "*",
     "axios": "^0.18.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-latest": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "cors": "^2.8.4",
-    "fastify": "^1.9.0",
-    "amqplib": "*"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3"
+    "cors": "^2.8.5",
+    "fastify": "^1.13.0",
+    "fastify-cors": "^0.2.0"
   }
 }
