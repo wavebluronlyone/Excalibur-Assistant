@@ -1,0 +1,27 @@
+version: '3'
+services:
+  excalibur-webhooks-node:  
+    build: node/
+    container_name: excalibur-webhooks-node
+    tty: true
+    volumes:
+      - ../:/app
+    working_dir: /app
+    environment:
+      - queueUrl=
+      - NODE_ENV=production
+    command: >
+      sh -c "yarn --ignore-engines
+      && pm2 start -f src/index.js --name="webhooks" --instances 1 --max-memory-restart 150M
+      && pm2-docker start daemon-app.js --instances 1"
+  excalibur-webhooks-nginx:
+    image: nginx:1.15.6
+    build: nginx/
+    container_name: excalibur-webhooks-nginx
+    links:
+      - excalibur-webhooks-node
+    depends_on:
+      - excalibur-webhooks-node
+    ports:
+      - "8082:8082"
+  
