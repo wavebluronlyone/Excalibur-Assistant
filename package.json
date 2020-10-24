@@ -23,7 +23,7 @@
   "homepage": "https://github.com/wavebluronlyone/Excalibur-Assistant#readme",
   "dependencies": {
     "amqplib": "*",
-    "axios": "^0.18.0",
+    "axios": "^0.21.0",
     "cors": "^2.8.5",
     "fastify": "^1.13.0",
     "fastify-cors": "^0.2.0"
